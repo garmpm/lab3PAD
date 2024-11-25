@@ -1,0 +1,199 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Access API",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/": {
+            "get": {
+                "description": "Returns message showing app is up",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            }
+        },
+        "/request": {
+            "post": {
+                "description": "Returns all books",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "$ref": "#/components/schemas/BookRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/definitions/GetBookResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "get": {
+                "description": "Returns all books",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/definitions/GetAllBooksResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/request/{id}": {
+            "get": {
+                "description": "Returns a book by ID",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Book ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/definitions/GetBookResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "BookRequest": {
+                "type": "object",
+                "properties": {
+                    "email": {
+                        "type": "string",
+                        "example": "example@example.com"
+                    },
+                    "title": {
+                        "type": "string",
+                        "example": "Book Title"
+                    }
+                },
+                "required": [
+                    "email",
+                    "title"
+                ]
+            },
+            "EditBookRequest": {
+                "type": "object",
+                "properties": {
+                    "available": {
+                        "type": "boolean",
+                        "example": true
+                    },
+                    "id": {
+                        "type": "integer",
+                        "example": 1234
+                    },
+                    "title": {
+                        "type": "string",
+                        "example": "Book Title"
+                    }
+                },
+                "required": [
+                    "email",
+                    "title"
+                ]
+            }
+        }
+    },
+    "definitions": {
+        "BookData": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer"
+                },
+                "available": {
+                    "type": "boolean"
+                },
+                "timestamp": {
+                    "type": "string"
+                },
+                "title": {
+                    "type": "string"
+                }
+            }
+        },
+        "GetAllBooksResponse": {
+            "type": "object",
+            "properties": {
+                "msg": {
+                    "type": "string"
+                },
+                "no_of_books": {
+                    "type": "integer"
+                },
+                "res": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/BookData"
+                    }
+                }
+            }
+        },
+        "GetBookResponse": {
+            "type": "object",
+            "properties": {
+                "msg": {
+                    "type": "string"
+                },
+                "res": {
+                    "type": "object",
+                    "$ref": "#/definitions/BookData"
+                }
+            }
+        }
+    }
+}
