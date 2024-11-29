@@ -70,6 +70,39 @@
                         }
                     }
                 }
+            },
+            "put": {
+                "description": "Edits a book",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "$ref": "#/components/schemas/EditBookRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/definitions/GetBookResponse"
+                                }
+                            }
+                        }
+                    }
+                }
             }
         },
         "/request/{id}": {
@@ -98,6 +131,37 @@
                                 "schema": {
                                     "type": "object",
                                     "$ref": "#/definitions/GetBookResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "Deletes a book by ID",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Book ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/definitions/GetAllBooksResponse"
                                 }
                             }
                         }
@@ -142,7 +206,8 @@
                     }
                 },
                 "required": [
-                    "email",
+                    "available",
+                    "id",
                     "title"
                 ]
             }

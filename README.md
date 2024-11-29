@@ -1,21 +1,10 @@
 
-# Flask Book API Server
-
-![Landing Page Screenshot](./give-directly.png?raw=true "Landing Page")
-
-## Overview
-
-This is a Python3-Flask server for a book library where we are adding a new ​/request endpoint which allows a user to request a book by title. All CRUD endpoints accept and return valid JSON. Sqlite was used as a datastore.
+# lab3PAD (Web Proxy)
 
 ## Prerequisites
 
 - Use of venv for python virtual environment
 - Use of pip for installing dependencies
-
-## Library Used
-
-- [Flask](https://flask.palletsprojects.com/en/2.1.x/)
-- [Python v3.8.10](https://www.python.org/downloads/release/python-3810/)
 
 Command to install libraries:
 
@@ -30,13 +19,13 @@ To run the project locally, please follow the steps given below.
 - Clone this Repository
 
   ```bash
-      git clone https://github.com/Wandonium/flask-book-api
+      git clone https://github.com/garmpm/lab3PAD.git
   ```
 
 - Go to Project directory
 
   ```bash
-  cd flask-book-api
+  cd lab3PAD
   ```
 
 - Create python virtual environment for project
@@ -61,23 +50,13 @@ To run the project locally, please follow the steps given below.
   python app.py
   ```
 
-### Now, I'm expecting this Output
+- Run the proxy
+  ```bash
+  python proxy.py
+  ```
 
-![Landing Page Screenshot](./give-directly.png?raw=true "Landing Page")
-
-## Links
-
-- Solution URL: [Solution on Github](https://github.com/Wandonium/flask-book-api)
-- Live Site URL: [Live Site on Microsoft Azure](https://www.flask-book-api.m.hillarywando.com/)
-- Project Blogpost: [Blogpost on Medium](https://medium.com/@hillarywando/how-to-create-a-basic-crud-api-using-python-flask-cd68ef5fd7e3)
-  
-## About Author
-
-- Website - [Hillary Wando](http://hillarywando.com/)
-- Twitter - [@hillarywando](https://www.twitter.com/hillarywando)
-
-
-<!-- It is mandatory to add this.-->
-
-Any comments, suggestions or corrections are welcome. Contribution are welcome as This repository is licensed under [MIT](https://opensource.org/licenses/MIT) License.
+- Access Swagger
+  ```bash
+  http://localhost:5001/api
+  ```
 
