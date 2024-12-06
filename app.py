@@ -6,9 +6,7 @@ from models import Book
 
 app = Flask(__name__)
 
-# create the database and table. Insert 10 test books into db
-# Do this only once to avoid inserting the test books into 
-# the db multiple times
+# crearea bazei de date daca nu exista
 if not os.path.isfile('books.db'):
     db.connect()
 
@@ -26,9 +24,7 @@ swagger_ui_blueprint = get_swaggerui_blueprint(
 )
 app.register_blueprint(swagger_ui_blueprint, url_prefix=SWAGGER_URL)
 
-# route for landing page
-# check out the template folder for the index.html file
-# check out the static folder for css and js files
+# ruta pentru landing page
 @app.route("/")
 def index():
     return render_template("index.html")
@@ -40,7 +36,7 @@ def isValid(email):
     else:
       return False
 
-
+# POST request
 @app.route("/request", methods=['POST'])
 def postRequest():
     req_data = request.get_json()
@@ -57,7 +53,7 @@ def postRequest():
         if b['title'] == title:
             return jsonify({
                 # 'error': '',
-                'res': f'Error ⛔❌! Book with title {title} is already in library!',
+                'res': f'Error! Book with title {title} is already in library!',
                 'status': '404'
             })
 
@@ -71,10 +67,10 @@ def postRequest():
                 # 'error': '',
                 'res': bk.serialize(),
                 'status': '200',
-                'msg': 'Success creating a new book!👍😀'
+                'msg': 'Success creating a new book!'
             })
 
-
+# GET request
 @app.route('/request', methods=['GET'])
 def getRequest():
     content_type = request.headers.get('Content-Type')
@@ -87,10 +83,10 @@ def getRequest():
                     # 'error': '',
                     'res': b,
                     'status': '200',
-                    'msg': 'Success getting all books in library!👍😀'
+                    'msg': 'Success getting all books in library!'
                 })
         return jsonify({
-            'error': f"Error ⛔❌! Book with id '{json['id']}' not found!",
+            'error': f"Error! Book with id '{json['id']}' not found!",
             'res': '',
             'status': '404'
         })
@@ -99,11 +95,11 @@ def getRequest():
                     # 'error': '',
                     'res': bks,
                     'status': '200',
-                    'msg': 'Success getting all books in library!👍😀',
+                    'msg': 'Success getting all books in library!',
                     'no_of_books': len(bks)
                 })
 
-
+#GER request dupa ID
 @app.route('/request/<id>', methods=['GET'])
 def getRequestId(id):
     req_args = request.view_args
@@ -116,10 +112,10 @@ def getRequestId(id):
                     # 'error': '',
                     'res': b,
                     'status': '200',
-                    'msg': 'Success getting book by ID!👍😀'
+                    'msg': 'Success getting book by ID!'
                 })
         return jsonify({
-            'error': f"Error ⛔❌! Book with id '{req_args['id']}' was not found!",
+            'error': f"Error! Book with id '{req_args['id']}' was not found!",
             'res': '',
             'status': '404'
         })
@@ -128,10 +124,11 @@ def getRequestId(id):
                     # 'error': '',
                     'res': bks,
                     'status': '200',
-                    'msg': 'Success getting book by ID!👍😀',
+                    'msg': 'Success getting book by ID!',
                     'no_of_books': len(bks)
                 })
 
+#PUT request
 @app.route("/request", methods=['PUT'])
 def putRequest():
     req_data = request.get_json()
@@ -155,17 +152,17 @@ def putRequest():
                 # 'error': '',
                 'res': bk.serialize(),
                 'status': '200',
-                'msg': f'Success updating the book titled {title}!👍😀'
+                'msg': f'Success updating the book titled {title}!'
             })        
     return jsonify({
                 # 'error': '',
-                'res': f'Error ⛔❌! Failed to update Book with title: {title}!',
+                'res': f'Error! Failed to update Book with title: {title}!',
                 'status': '404'
             })
     
     
 
-
+#DELETE request
 @app.route('/request/<id>', methods=['DELETE'])
 def deleteRequest(id):
     req_args = request.view_args
@@ -180,12 +177,12 @@ def deleteRequest(id):
                 return jsonify({
                     'res': updated_bks,
                     'status': '200',
-                    'msg': 'Success deleting book by ID!👍😀',
+                    'msg': 'Success deleting book by ID!',
                     'no_of_books': len(updated_bks)
                 })
     else:
         return jsonify({
-            'error': f"Error ⛔❌! No Book ID sent!",
+            'error': f"Error! No Book ID sent!",
             'res': '',
             'status': '404'
         })

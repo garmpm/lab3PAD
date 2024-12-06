@@ -146,6 +146,9 @@ class WebProxy:
     def run(self, host='0.0.0.0', port=5001):
         self.app.run(host=host, port=port, debug=True)
 
-if __name__ == '__main__':
+def create_proxy():
     proxy = WebProxy(target_url='http://localhost:5000')
     proxy.run()
+
+if __name__ == '__main__':
+    create_proxy()
